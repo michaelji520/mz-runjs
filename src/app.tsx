@@ -1,4 +1,3 @@
-
 import { MonacoEditor } from "./components/monaco-editor";
 import { useMemo, useRef, useState } from "react";
 import { transpile } from "./common/transpile";
@@ -7,6 +6,9 @@ import { defaultEditorValue, getIframeSrcDoc } from "./common/constant";
 // https://www.npmjs.com/package/jsconsole
 
 const initValue = defaultEditorValue;
+
+const search = new URLSearchParams(window.location.search);
+const embed = search.get("embed") === "1";
 
 export function App() {
 
@@ -31,11 +33,14 @@ export function App() {
 
   return (
     <div className="flex h-screen flex-col overflow-hidden">
+      {embed ? null : (
       <header className="flex h-12 shrink-0 items-center gap-2 border-b px-4">
         <span className="font-semibold text-lg">
           Online JavaScript Runner
         </span>
       </header>
+
+      )}
       <section className="flex flex-1">
         <div className="flex-1 border-r border-gray-300">
           <MonacoEditor
