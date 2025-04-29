@@ -153,6 +153,6 @@ module.exports = {
         }
       ]
     }),
-    WorkboxGenerateSW
+    isDev ? false : WorkboxGenerateSW
   ].filter(Boolean),
 };

@@ -1,3 +1,4 @@
+
 export const defaultEditorValue = `import React, { useEffect } from 'https://cdn.skypack.dev/react'
 import { render } from 'https://cdn.skypack.dev/react-dom'
 
@@ -33,7 +34,7 @@ render(
 function sum(a, b) {
   return a + b;
 }
-console.log('Hello World!')
+console.log('Hello World')
 
 console.log('sum result:', sum(24, 45))
 `;
@@ -86,8 +87,6 @@ export const getIframeSrcDoc = (value: string) => {
   <body>
     <div id="${appDomId}"></div>
 
-    <div id="${consoleResultHeaderId}">Console</div>
-    <div id="${consoleDomId}"></div>
     <script type="text/javascript">
       window.onerror = (message, source, lineno, colno, error) => {
         const app = document.getElementById('${appDomId}');
@@ -101,23 +100,8 @@ export const getIframeSrcDoc = (value: string) => {
       }
       const console = {
         log: (...params) => {
-          const app = document.getElementById('${consoleDomId}');
-
           if (params?.length) {
-            const div = document.createElement("div");
-            div.className = 'line'
-            const els = params.map(i => {
-              const span = document.createElement("span");
-
-              if (typeof i === 'number') {
-                span.className = 'number';
-              }
-              span.innerText = i;
-
-              div.append(span);
-              div.append(' ')
-            });
-            app.append(div);
+            window.parent.postMessage({type: 'console', args: params}, '*');
           }
         }
       };
