@@ -21,7 +21,7 @@ const WorkboxGenerateSW = new WorkboxPlugin.GenerateSW({
       // Define runtime caching rules.
       runtimeCaching: [{
         // Match any request that ends with .png, .jpg, .jpeg or .svg.
-        urlPattern: /\.(?:js|jpg|jpeg|svg|png)$/,
+        urlPattern: /\.(?:jpg|jpeg|svg|png)$/,
         // Apply a cache-first strategy.
         handler: 'CacheFirst',
         options: {
