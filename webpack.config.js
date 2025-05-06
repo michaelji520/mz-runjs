@@ -7,39 +7,39 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CssMinimizerWebpackPlugin = require("css-minimizer-webpack-plugin");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 // For PWA
-const WebpackPwaManifest  = require('webpack-pwa-manifest');
-const WorkboxPlugin = require('workbox-webpack-plugin');
+// const WebpackPwaManifest  = require('webpack-pwa-manifest');
+// const WorkboxPlugin = require('workbox-webpack-plugin');
 // end of PWA
 
 const isDev = process.env.NODE_ENV === "development";
 
-const WorkboxGenerateSW = new WorkboxPlugin.GenerateSW({
-      // attempt to identify and delete any precaches created by older, incompatible versions.
-      cleanupOutdatedCaches: true,
-      maximumFileSizeToCacheInBytes: 50 * 1024 * 1024, // 5MB
+// const WorkboxGenerateSW = new WorkboxPlugin.GenerateSW({
+//       // attempt to identify and delete any precaches created by older, incompatible versions.
+//       cleanupOutdatedCaches: true,
+//       maximumFileSizeToCacheInBytes: 50 * 1024 * 1024, // 5MB
 
-      // Define runtime caching rules.
-      runtimeCaching: [{
-        // Match any request that ends with .png, .jpg, .jpeg or .svg.
-        urlPattern: /\.(?:jpg|jpeg|svg|png)$/,
-        // Apply a cache-first strategy.
-        handler: 'CacheFirst',
-        options: {
-          // Use a custom cache name.
-          cacheName: 'images',
-          // Only cache 10 images.
-          expiration: { maxEntries: 10 },
-        },
-      }],
-    })
-if (isDev) {
-  Object.defineProperty(WorkboxGenerateSW, 'alreadyCalled', {
-    get() {
-      return false
-    },
-    set() {}
-  })
-}
+//       // Define runtime caching rules.
+//       runtimeCaching: [{
+//         // Match any request that ends with .png, .jpg, .jpeg or .svg.
+//         urlPattern: /\.(?:jpg|jpeg|svg|png)$/,
+//         // Apply a cache-first strategy.
+//         handler: 'CacheFirst',
+//         options: {
+//           // Use a custom cache name.
+//           cacheName: 'images',
+//           // Only cache 10 images.
+//           expiration: { maxEntries: 10 },
+//         },
+//       }],
+//     })
+// if (isDev) {
+//   Object.defineProperty(WorkboxGenerateSW, 'alreadyCalled', {
+//     get() {
+//       return false
+//     },
+//     set() {}
+//   })
+// }
 
 module.exports = {
   mode: isDev ? 'development' : 'production',
@@ -132,27 +132,27 @@ module.exports = {
     new MiniCssExtractPlugin(),
     new MonacoWebpackPlugin(),
     isDev ? false : new CleanWebpackPlugin(),
-    new WebpackPwaManifest({
-      filename: 'manifest.webmanifest',
-      name: 'mz-runjs',
-      short_name: 'mz-runjs',
-      display: 'fullscreen',
-      description: 'This application is a web-based JavaScript editor and runner.',
-      background_color: '#ccc',
-      theme_color: '#ccc',
-      start_url: "/?from=pwa",
-      orientation: 'landscape', // portrait
-      crossorigin: null, //can be null, use-credentials or anonymous
-      // need to add follow line, cause plugin set publicPath 'auto' as default value
-      publicPath: '/' ,
-      icons: [
-        {
-          src: path.resolve(__dirname, './src/assets/icon.png'),
-          // auto generate multiple size icon, at lease have 192 size
-          sizes: [64, 128, 192, 256] // multiple sizes
-        }
-      ]
-    }),
-    isDev ? false : WorkboxGenerateSW
+    // new WebpackPwaManifest({
+    //   filename: 'manifest.webmanifest',
+    //   name: 'mz-runjs',
+    //   short_name: 'mz-runjs',
+    //   display: 'fullscreen',
+    //   description: 'This application is a web-based JavaScript editor and runner.',
+    //   background_color: '#ccc',
+    //   theme_color: '#ccc',
+    //   start_url: "/?from=pwa",
+    //   orientation: 'landscape', // portrait
+    //   crossorigin: null, //can be null, use-credentials or anonymous
+    //   // need to add follow line, cause plugin set publicPath 'auto' as default value
+    //   publicPath: '/' ,
+    //   icons: [
+    //     {
+    //       src: path.resolve(__dirname, './src/assets/icon.png'),
+    //       // auto generate multiple size icon, at lease have 192 size
+    //       sizes: [64, 128, 192, 256] // multiple sizes
+    //     }
+    //   ]
+    // }),
+    // isDev ? false : WorkboxGenerateSW
   ].filter(Boolean),
 };

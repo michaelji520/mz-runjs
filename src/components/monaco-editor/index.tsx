@@ -54,6 +54,10 @@ function MonacoEditorInner(
       tabSize: tabSize,
       fontSize: 14,
       theme: "vs",
+      automaticLayout: true,
+      minimap: {
+        enabled: false,
+      },
     });
     setIsEditorValid(true);
 

@@ -1,22 +1,22 @@
 
-export const defaultEditorValue = `import React, { useEffect } from 'https://cdn.skypack.dev/react'
+export const defaultEditorValue = `
+import React, { useEffect } from 'https://cdn.skypack.dev/react'
 import { render } from 'https://cdn.skypack.dev/react-dom'
 
 function App() {
 
   const [count, setCount] = React.useState(0);
 
-  useEffect(() => {
-    console.log('This is log inset react component.')
-  }, [])
-
   return (
     <div className="container">
-      <h1>Online JavaScript Runner</h1>
+      <h2>You can use React component!</h2>
       <p>
-        You can use NPM packages provided by {''}
+        NPM packages are provided by {' '}
         <a href="https://www.skypack.dev/">Skypack</a>.
       </p>
+      <div>
+        <img  style={{width: 280}} src="https://i.postimg.cc/V6xfY9DP/giphy.gif" />
+      </div>
       <div>
         <button onClick={() => setCount(count + 1)}>Click me to increase</button>
       </div>
@@ -25,16 +25,13 @@ function App() {
   )
 }
 // You can place react component to container which dom id is 'app' 
-render(
-  <App />,
-  document.getElementById('app')
-)
+render(<App />, document.getElementById('app'))
 
 
+// Or you can simply run some javascript code, result will auto display in 'Console'
 function sum(a, b) {
   return a + b;
 }
-console.log('Hello World')
 
 console.log('sum result:', sum(24, 45))
 `;
@@ -44,12 +41,12 @@ export const consoleDomId = 'ac03afce-cfde-483d-9494-a7219d54713b';
 export const consoleResultHeaderId = 'a16b4cc4-da9d-4ad5-983c-f71345b3c875';
 
 export const getIframeSrcDoc = (value: string) => {
-    return `
+  return `
 <html>
   <head>
     <style>
       html, body {
-        font-family: Menlo, Monaco, "Courier New", monospace;
+        font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         margin: 0;
         padding: 0;
         font-size: 14px;
