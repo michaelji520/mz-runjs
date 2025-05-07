@@ -144,16 +144,17 @@ export function App() {
           ></MonacoEditor>
         </div>
         {/* Resizer */}
-        <div
-          className={clsx(
-            "w-1 bg-gray-200 hover:bg-gray-300 relative z-10 cursor-col-resize flex items-center justify-center",
-            isDragging && "bg-blue-400"
-          )}
-          onMouseDown={handleDragStart}
-          onTouchStart={handleDragStart}
-        >
+        <div className="relative flex items-center justify-center">
+          <div
+            className={clsx(
+              "absolute h-full w-px hover:w-1 transition-all bg-gray-200 hover:bg-blue-500 z-10 cursor-col-resize flex items-center justify-center shrink-0", isDragging && 'bg-blue-500 w-1')}
+            onMouseDown={handleDragStart}
+            onTouchStart={handleDragStart}
+          >
+          </div>
+
         </div>
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col flex-1" style={{ pointerEvents: isDragging ? 'none' : 'unset' }}>
           <iframe
             ref={iframe}
             src="about:srcdoc"
