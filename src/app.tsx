@@ -36,6 +36,7 @@ export function App() {
   }
 
   useEffect(() => {
+    document.title = "Online JavaScript Runner";
     window.addEventListener('message', onConsoleUpdate, false);
     return () => {
       window.removeEventListener('message', onConsoleUpdate, false);
