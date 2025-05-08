@@ -64,12 +64,11 @@ export const getIframeSrcDoc = (value: string) => {
 
     <script type="text/javascript">
       window.onerror = (message, source, lineno, colno, error) => {
-        const app = document.getElementById('${appDomId}');
-        const div = document.createElement("div");
-        div.className = 'error';
-        div.innerText = message;
-        app.innerHTML = '';
-        app.append(div);
+
+        window.parent.postMessage({type: 'error', args: {
+          message, source, lineno, colno, error
+        }}, '*');
+         
         // here 'return true' will block error meesage from showing on devtool
         return true;
       }
