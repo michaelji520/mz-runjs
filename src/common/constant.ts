@@ -15,7 +15,7 @@ function App() {
         <a href="https://www.skypack.dev/">Skypack</a>.
       </p>
       <div>
-        <img  style={{width: 280}} src="https://i.postimg.cc/V6xfY9DP/giphy.gif" />
+        <img style={{width: 280}} src="https://i.postimg.cc/V6xfY9DP/giphy.gif" />
       </div>
       <div>
         <button onClick={() => setCount(count + 1)}>Click me to increase</button>
@@ -37,8 +37,6 @@ console.log('sum result:', sum(24, 45))
 `;
 
 export const appDomId = 'app';
-export const consoleDomId = 'ac03afce-cfde-483d-9494-a7219d54713b';
-export const consoleResultHeaderId = 'a16b4cc4-da9d-4ad5-983c-f71345b3c875';
 
 export const getIframeSrcDoc = (value: string) => {
   return `
@@ -56,28 +54,8 @@ export const getIframeSrcDoc = (value: string) => {
         display: flex;
         flex-direction: column;
       }
-      #${appDomId}, #${consoleDomId} {
+      #${appDomId} {
         flex: 1;
-      }
-      #${consoleResultHeaderId} {
-        font-family: system-ui;
-        font-weight: 600;
-        padding: 0 0 0 8px;
-        background: #edf2fa;
-        height: 30px;
-        line-height: 30px;
-        border-top: 0.5px solid #e1e3e1;
-      }
-      #${consoleDomId} > .line {
-        border-bottom: 0.5px solid #d6e2fb;
-        padding: 3px 0 3px 8px;
-      }
-      .number {
-        color: #0842a0;
-      }
-      .error {
-        color: #3b120e;
-        background: #f9eceb;
       }
     </style>
   </head>
@@ -93,7 +71,7 @@ export const getIframeSrcDoc = (value: string) => {
         app.innerHTML = '';
         app.append(div);
         // here 'return true' will block error meesage from showing on devtool
-        // return true;
+        return true;
       }
       const console = {
         log: (...params) => {

@@ -4,6 +4,7 @@ import { transpile } from "./common/transpile";
 import { defaultEditorValue, getIframeSrcDoc } from "./common/constant";
 import { ConsoleOutput } from "./components/console-output";
 import clsx from "clsx";
+import { WebviewWrapper } from "./components/webview-wrapper";
 
 const initValue = defaultEditorValue;
 
@@ -17,7 +18,6 @@ export function App() {
 
   const [editorValue, setEditorValue] = useState("");
   const [consoleValue, setConsoleValue] = useState<string[][]>([]);
-  const iframe = useRef<HTMLIFrameElement>(null);
 
   const doc = useMemo(() => {
     const { iframeCode } = transpile(editorValue);
@@ -155,12 +155,7 @@ export function App() {
 
         </div>
         <div className="flex flex-col flex-1" style={{ pointerEvents: isDragging ? 'none' : 'unset' }}>
-          <iframe
-            ref={iframe}
-            src="about:srcdoc"
-            srcDoc={doc}
-            className="w-full flex-1"
-          ></iframe>
+          <WebviewWrapper doc={doc} />
           {/* Console */}
           <ConsoleOutput consoleValue={consoleValue} />
         </div>
