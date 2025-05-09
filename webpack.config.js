@@ -102,6 +102,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: "index.html",
+      title: "Online JavaScript Runner",
       favicon: path.resolve(__dirname, "./src/assets/favicon.ico"),
       template: path.resolve(__dirname, "./src/index.html"),
       chunks: ["index"],

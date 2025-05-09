@@ -5,14 +5,17 @@ import { defaultEditorValue, getIframeSrcDoc } from "./common/constant";
 import { ConsoleOutput } from "./components/console-output";
 import clsx from "clsx";
 import { WebviewWrapper } from "./components/webview-wrapper";
+import { Separator } from "@/components/ui/separator"
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable"
 
 const initValue = defaultEditorValue;
 
 const search = new URLSearchParams(window.location.search);
 const embed = search.get("embed") === "1";
-const minLeftWidth = 10;
-const minRightWidth = 10;
-const initialLeftWidth = 50; // Initial width of the left pane (in percentage)
 
 export function App() {
 
@@ -36,7 +39,6 @@ export function App() {
   }
 
   useEffect(() => {
-    document.title = "Online JavaScript Runner";
     window.addEventListener('message', onConsoleUpdate, false);
     return () => {
       window.removeEventListener('message', onConsoleUpdate, false);
@@ -47,119 +49,47 @@ export function App() {
     setConsoleValue([]);
   }, [doc])
 
-  const [leftWidth, setLeftWidth] = useState(initialLeftWidth);
-  const [isDragging, setIsDragging] = useState(false);
-  const splitPaneRef = useRef<HTMLDivElement>(null);
-  const initialX = useRef<number>(0);
-  const startingLeftWidth = useRef<number>(leftWidth);
-
-  // Handle the start of dragging
-  const handleDragStart = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
-    setIsDragging(true);
-
-    // Handle either mouse or touch event
-    if ('clientX' in e) {
-      initialX.current = e.clientX;
-    } else {
-      initialX.current = e.touches[0].clientX;
-    }
-
-    startingLeftWidth.current = leftWidth;
-  };
-
-  // Handle the dragging motion
-  const handleDrag = (clientX: number) => {
-    if (!isDragging || !splitPaneRef.current) return;
-
-    const containerWidth = splitPaneRef.current.offsetWidth;
-    const deltaX = clientX - initialX.current;
-    const newLeftWidth = Math.max(
-      minLeftWidth,
-      Math.min(
-        startingLeftWidth.current + (deltaX / containerWidth) * 100,
-        100 - minRightWidth
-      )
-    );
-
-    setLeftWidth(newLeftWidth);
-  };
-
-  // Handle mouse dragging
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      handleDrag(e.clientX);
-    };
-
-    const handleMouseUp = () => {
-      setIsDragging(false);
-    };
-
-    if (isDragging) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
-    }
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [isDragging]);
-
-  // Handle touch dragging
-  useEffect(() => {
-    const handleTouchMove = (e: TouchEvent) => {
-      handleDrag(e.touches[0].clientX);
-    };
-
-    const handleTouchEnd = () => {
-      setIsDragging(false);
-    };
-
-    if (isDragging) {
-      document.addEventListener("touchmove", handleTouchMove);
-      document.addEventListener("touchend", handleTouchEnd);
-    }
-
-    return () => {
-      document.removeEventListener("touchmove", handleTouchMove);
-      document.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [isDragging]);
-
   return (
-    <div className="flex h-screen flex-col overflow-hidden font-sans" style={{ userSelect: isDragging ? "none" : "auto" }}>
+    <div className="flex h-screen flex-col overflow-hidden font-sans">
       {embed ? null : (
         <header className="flex h-12 shrink-0 items-center gap-2 border-b px-4">
           <span className="font-semibold text-lg">
             Online JavaScript Runner
           </span>
+          {/* <Separator orientation="vertical" className="mx-4" /> */}
         </header>
 
       )}
-      <section className="flex flex-1 w-full" ref={splitPaneRef}>
-        <div className="overflow-hidden" style={{ width: `${leftWidth}%` }}>
-          <MonacoEditor
-            initValue={initValue}
-            onValueChange={setEditorValue}
-            language="javascript"
-          ></MonacoEditor>
-        </div>
-        {/* Resizer */}
-        <div className="relative flex items-center justify-center">
-          <div
-            className={clsx(
-              "absolute h-full w-px hover:w-1 transition-all bg-gray-200 hover:bg-blue-500 z-10 cursor-col-resize flex items-center justify-center shrink-0", isDragging && 'bg-blue-500 w-1')}
-            onMouseDown={handleDragStart}
-            onTouchStart={handleDragStart}
-          >
-          </div>
-
-        </div>
-        <div className="flex flex-col flex-1" style={{ pointerEvents: isDragging ? 'none' : 'unset' }}>
-          <WebviewWrapper doc={doc} />
-          {/* Console */}
-          <ConsoleOutput consoleValue={consoleValue} />
-        </div>
+      <section className="flex flex-1 w-full" >
+        <ResizablePanelGroup
+          direction="horizontal"
+        >
+          <ResizablePanel defaultSize={50}>
+            <div className="flex items-center justify-center h-full">
+              <MonacoEditor
+                initValue={initValue}
+                onValueChange={setEditorValue}
+                language="javascript"
+              ></MonacoEditor>
+            </div>
+          </ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel defaultSize={50}>
+            <ResizablePanelGroup direction="vertical">
+              <ResizablePanel defaultSize={50}>
+                <div className="flex h-full justify-center">
+                  <WebviewWrapper doc={doc} />
+                </div>
+              </ResizablePanel>
+              <ResizableHandle />
+              <ResizablePanel defaultSize={50}>
+                <div className="flex h-full justify-center">
+                  <ConsoleOutput consoleValue={consoleValue} />
+                </div>
+              </ResizablePanel>
+            </ResizablePanelGroup>
+          </ResizablePanel>
+        </ResizablePanelGroup>
       </section>
     </div>
   );

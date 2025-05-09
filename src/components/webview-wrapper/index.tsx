@@ -12,7 +12,7 @@ export function WebviewWrapper(props: IWebviewWrapper) {
 
   return (
     <div className="w-full flex-1 flex flex-col overflow-hidden">
-      <div className="pl-2 bg-[#edf2fa] h-7 leading-7 border-t border-solid border-gray-200 font-semibold">Webview</div>
+      <div className="pl-2 bg-[#edf2fa] h-7 leading-7 font-semibold">Webview</div>
       <iframe
         src={src}
         sandbox="allow-same-origin allow-scripts allow-modals allow-forms allow-popups"

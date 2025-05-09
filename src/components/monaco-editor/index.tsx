@@ -91,7 +91,7 @@ function MonacoEditorInner(
     });
   }, [isEditorValid, tabSize]);
 
-  return <div className="editor h-full" ref={container}></div>;
+  return <div className="editor w-full h-full" ref={container}></div>;
 }
 
 export const MonacoEditor = forwardRef(MonacoEditorInner);
