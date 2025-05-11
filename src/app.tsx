@@ -74,88 +74,23 @@ export function App() {
           {/* <Separator orientation="vertical" className="mx-4" /> */}
           <Menubar className="border-none shadow-none ml-4">
             <MenubarMenu>
-              <MenubarTrigger>File</MenubarTrigger>
+              <MenubarTrigger>Files</MenubarTrigger>
               <MenubarContent>
-                <MenubarItem>
-                  New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-                </MenubarItem>
-                <MenubarItem>
-                  New Window <MenubarShortcut>⌘N</MenubarShortcut>
-                </MenubarItem>
-                <MenubarItem disabled>New Incognito Window</MenubarItem>
-                <MenubarSeparator />
-                <MenubarSub>
-                  <MenubarSubTrigger>Share</MenubarSubTrigger>
-                  <MenubarSubContent>
-                    <MenubarItem>Email link</MenubarItem>
-                    <MenubarItem>Messages</MenubarItem>
-                    <MenubarItem>Notes</MenubarItem>
-                  </MenubarSubContent>
-                </MenubarSub>
-                <MenubarSeparator />
-                <MenubarItem>
-                  Print... <MenubarShortcut>⌘P</MenubarShortcut>
-                </MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-            <MenubarMenu>
-              <MenubarTrigger>Edit</MenubarTrigger>
-              <MenubarContent>
-                <MenubarItem>
-                  Undo <MenubarShortcut>⌘Z</MenubarShortcut>
-                </MenubarItem>
-                <MenubarItem>
-                  Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut>
-                </MenubarItem>
-                <MenubarSeparator />
-                <MenubarSub>
-                  <MenubarSubTrigger>Find</MenubarSubTrigger>
-                  <MenubarSubContent>
-                    <MenubarItem>Search the web</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Find...</MenubarItem>
-                    <MenubarItem>Find Next</MenubarItem>
-                    <MenubarItem>Find Previous</MenubarItem>
-                  </MenubarSubContent>
-                </MenubarSub>
-                <MenubarSeparator />
-                <MenubarItem>Cut</MenubarItem>
-                <MenubarItem>Copy</MenubarItem>
-                <MenubarItem>Paste</MenubarItem>
+                <MenubarCheckboxItem>
+                  Share Code
+                </MenubarCheckboxItem>
               </MenubarContent>
             </MenubarMenu>
             <MenubarMenu>
               <MenubarTrigger>View</MenubarTrigger>
               <MenubarContent>
-                <MenubarCheckboxItem>Always Show Bookmarks Bar</MenubarCheckboxItem>
+                <MenubarCheckboxItem checked>Show Console</MenubarCheckboxItem>
                 <MenubarCheckboxItem checked>
-                  Always Show Full URLs
+                  Show Webview
                 </MenubarCheckboxItem>
-                <MenubarSeparator />
-                <MenubarItem inset>
-                  Reload <MenubarShortcut>⌘R</MenubarShortcut>
-                </MenubarItem>
-                <MenubarItem disabled inset>
-                  Force Reload <MenubarShortcut>⇧⌘R</MenubarShortcut>
-                </MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem inset>Toggle Fullscreen</MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem inset>Hide Sidebar</MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-            <MenubarMenu>
-              <MenubarTrigger>Profiles</MenubarTrigger>
-              <MenubarContent>
-                <MenubarRadioGroup value="benoit">
-                  <MenubarRadioItem value="andy">Andy</MenubarRadioItem>
-                  <MenubarRadioItem value="benoit">Benoit</MenubarRadioItem>
-                  <MenubarRadioItem value="Luis">Luis</MenubarRadioItem>
-                </MenubarRadioGroup>
-                <MenubarSeparator />
-                <MenubarItem inset>Edit...</MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem inset>Add Profile...</MenubarItem>
+                <MenubarCheckboxItem checked>
+                  Show Style
+                </MenubarCheckboxItem>
               </MenubarContent>
             </MenubarMenu>
           </Menubar>
@@ -167,7 +102,8 @@ export function App() {
           direction="horizontal"
         >
           <ResizablePanel defaultSize={50}>
-            <div className="flex items-center justify-center h-full">
+            <div className="flex flex-col justify-center h-full">
+              <div className="pl-2 bg-[#edf2fa] h-7 leading-7 font-semibold">JavaScript</div>
               <MonacoEditor
                 initValue={initValue}
                 onValueChange={setEditorValue}
