@@ -26,6 +26,9 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar"
+import { ThemeProvider } from "@/components/theme-provider"
+import { ModeToggle } from "./components/mode-toggle";
+
 
 const initValue = defaultEditorValue;
 
@@ -65,14 +68,24 @@ export function App() {
   }, [doc])
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden font-sans">
-      {embed ? null : (
-        <header className="flex h-12 shrink-0 items-center gap-2 border-b px-4">
-          <span className="font-semibold text-lg">
-            Online JavaScript Runner
-          </span>
-          {/* <Separator orientation="vertical" className="mx-4" /> */}
-          <Menubar className="border-none shadow-none ml-4">
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <div className="flex h-screen flex-col overflow-hidden font-sans">
+        {embed ? null : (
+          <header className="flex h-12 shrink-0 items-center gap-2 border-b px-4 justify-between">
+            <div className="font-semibold text-lg">
+              Online JavaScript Runner
+            </div>
+            <div>
+              <ModeToggle />
+
+            </div>
+            {/* <Separator orientation="vertical" className="mx-4" /> */}
+            {/* <Menubar className="border-none shadow-none ml-4">
             <MenubarMenu>
               <MenubarTrigger>Files</MenubarTrigger>
               <MenubarContent>
@@ -93,42 +106,44 @@ export function App() {
                 </MenubarCheckboxItem>
               </MenubarContent>
             </MenubarMenu>
-          </Menubar>
-        </header>
+          </Menubar> */}
+          </header>
 
-      )}
-      <section className="flex flex-1 w-full" >
-        <ResizablePanelGroup
-          direction="horizontal"
-        >
-          <ResizablePanel defaultSize={50}>
-            <div className="flex flex-col justify-center h-full">
-              <div className="pl-2 bg-[#edf2fa] h-7 leading-7 font-semibold">JavaScript</div>
-              <MonacoEditor
-                initValue={initValue}
-                onValueChange={setEditorValue}
-                language="javascript"
-              ></MonacoEditor>
-            </div>
-          </ResizablePanel>
-          <ResizableHandle />
-          <ResizablePanel defaultSize={50}>
-            <ResizablePanelGroup direction="vertical">
-              <ResizablePanel defaultSize={50}>
-                <div className="flex h-full justify-center">
-                  <WebviewWrapper doc={doc} />
-                </div>
-              </ResizablePanel>
-              <ResizableHandle />
-              <ResizablePanel defaultSize={50}>
-                <div className="flex h-full justify-center">
-                  <ConsoleOutput consoleValue={consoleValue} />
-                </div>
-              </ResizablePanel>
-            </ResizablePanelGroup>
-          </ResizablePanel>
-        </ResizablePanelGroup>
-      </section>
-    </div>
+        )}
+        <section className="flex flex-1 w-full" >
+          <ResizablePanelGroup
+            direction="horizontal"
+          >
+            <ResizablePanel defaultSize={50}>
+              <div className="flex flex-col justify-center h-full">
+                <div className="pl-2 bg-[#edf2fa] h-7 leading-7 font-semibold">JavaScript</div>
+                <MonacoEditor
+                  initValue={initValue}
+                  onValueChange={setEditorValue}
+                  language="javascript"
+                ></MonacoEditor>
+              </div>
+            </ResizablePanel>
+            <ResizableHandle />
+            <ResizablePanel defaultSize={50}>
+              <ResizablePanelGroup direction="vertical">
+                <ResizablePanel defaultSize={50}>
+                  <div className="flex h-full justify-center">
+                    <WebviewWrapper doc={doc} />
+                  </div>
+                </ResizablePanel>
+                <ResizableHandle />
+                <ResizablePanel defaultSize={50}>
+                  <div className="flex h-full justify-center">
+                    <ConsoleOutput consoleValue={consoleValue} />
+                  </div>
+                </ResizablePanel>
+              </ResizablePanelGroup>
+            </ResizablePanel>
+          </ResizablePanelGroup>
+        </section>
+      </div>
+
+    </ThemeProvider>
   );
 }

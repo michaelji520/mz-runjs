@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import * as monaco from "monaco-editor";
+import { useTheme } from "next-themes";
 
 export interface MonacoEditorHandle {
   editor: monaco.editor.IStandaloneCodeEditor | null;
@@ -35,6 +36,7 @@ function MonacoEditorInner(
   const container = useRef<HTMLDivElement>(null);
   const instance = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const textChangeRef = useRef<monaco.IDisposable | null>(null);
+  const { setTheme, theme } = useTheme()
 
   const [isEditorValid, setIsEditorValid] = useState(false);
 
@@ -75,6 +77,14 @@ function MonacoEditorInner(
       setIsEditorValid(false);
     };
   }, []);
+
+  useEffect(() => {
+    if (theme === "dark") {
+      monaco.editor.setTheme("vs-dark");
+    } else {
+      monaco.editor.setTheme("vs");
+    }
+  }, [theme]);
 
   useEffect(() => {
     // Need to check editor instance has been inited and not disposed
