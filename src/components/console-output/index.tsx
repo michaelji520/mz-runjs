@@ -15,7 +15,7 @@ export function ConsoleOutput(props: IProps) {
             if (typeof j === 'string') {
               return <span key={subidx}>{j}&nbsp;</span>;
             } else if (typeof j === 'number') {
-              return <span key={subidx} className="text-[#0842a0]">{j}</span>;
+              return <span key={subidx} className="text-[#0842a0] dark:text-blue-200">{j}</span>;
             }
           })
         }</div>
