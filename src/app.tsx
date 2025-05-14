@@ -91,7 +91,8 @@ export function App() {
           >
             <ResizablePanel defaultSize={50}>
               <div className="flex flex-col justify-center h-full">
-                <div className="pl-2 bg-[#edf2fa] h-7 leading-7 font-semibold">JavaScript</div>
+                <div className="font-semibold pl-2 bg-slate-100 h-7 leading-7 dark:bg-slate-600 dark:text-slate-200">JavaScript</div>
+
                 <MonacoEditor
                   initValue={initValue}
                   onValueChange={setEditorValue}

@@ -8,9 +8,9 @@ export function ConsoleOutput(props: IProps) {
 
   return (
     <div className="w-full flex-1 text-sm overflow-hidden flex flex-col">
-      <div className="font-semibold pl-2 bg-[#edf2fa] h-7 leading-7">Console</div>
+      <div className="font-semibold pl-2 bg-slate-100 h-7 leading-7 dark:bg-slate-600 dark:text-slate-200">Console</div>
       <div className="font-mono flex-1 overflow-y-auto">{consoleValue.map((i, idx) => (
-        <div key={idx} className="border-b-[0.5px] border-solid border-[#d6e2fb] py-[3px] pl-2">{
+        <div key={idx} className="border-b-[0.5px] border-solid border py-[3px] pl-2">{
           i.map((j, subidx) => {
             if (typeof j === 'string') {
               return <span key={subidx}>{j}&nbsp;</span>;
