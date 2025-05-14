@@ -36,7 +36,7 @@ function MonacoEditorInner(
   const container = useRef<HTMLDivElement>(null);
   const instance = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const textChangeRef = useRef<monaco.IDisposable | null>(null);
-  const { setTheme, theme } = useTheme()
+  const { theme } = useTheme()
 
   const [isEditorValid, setIsEditorValid] = useState(false);
 
