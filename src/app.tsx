@@ -70,8 +70,7 @@ export function App() {
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="system"
-      enableSystem
+      defaultTheme="light"
       disableTransitionOnChange
     >
       <div className="flex h-screen flex-col overflow-hidden font-sans">
@@ -82,31 +81,7 @@ export function App() {
             </div>
             <div>
               <ModeToggle />
-
             </div>
-            {/* <Separator orientation="vertical" className="mx-4" /> */}
-            {/* <Menubar className="border-none shadow-none ml-4">
-            <MenubarMenu>
-              <MenubarTrigger>Files</MenubarTrigger>
-              <MenubarContent>
-                <MenubarCheckboxItem>
-                  Share Code
-                </MenubarCheckboxItem>
-              </MenubarContent>
-            </MenubarMenu>
-            <MenubarMenu>
-              <MenubarTrigger>View</MenubarTrigger>
-              <MenubarContent>
-                <MenubarCheckboxItem checked>Show Console</MenubarCheckboxItem>
-                <MenubarCheckboxItem checked>
-                  Show Webview
-                </MenubarCheckboxItem>
-                <MenubarCheckboxItem checked>
-                  Show Style
-                </MenubarCheckboxItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar> */}
           </header>
 
         )}
